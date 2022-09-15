@@ -24,9 +24,9 @@ function NavBar() {
       {user && (
         <div className="navbar">
           Привет, {user.name}.{' '}
-          <a className="navlink" href="#" role="button" tabIndex={0} onClick={handleLogout}>
+          <button className="navlink btn" onClick={handleLogout}>
             Выйти
-          </a>
+          </button>
         </div>
       )}
         {!user && 
