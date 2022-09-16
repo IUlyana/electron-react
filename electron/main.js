@@ -2,6 +2,7 @@
 const {app, BrowserWindow} = require('electron')
 const path = require ('path');
 const url = require ('url');
+const isDev = require('electron-is-dev');
 
 function createWindow () {
   // Создаем окно браузера.
@@ -16,13 +17,24 @@ function createWindow () {
   // и загрузить index.html приложения.
   //mainWindow.loadFile('index.html')
 
-  const startUrl = process.env.ELECTRON_START_URL || url.format({
+
+  if(isDev) {
+    mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
+  } else {
+    const startUrl = url.format({
     pathname: path.join(__dirname, '../index.html'),
     protocol: 'file:',
     slashes: true
   });
+    mainWindow.loadURL(startUrl);
+  }
+  // const startUrl = process.env.ELECTRON_START_URL || url.format({
+  //   pathname: path.join(__dirname, '../index.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // });
 
-  mainWindow.loadURL(startUrl);
+  // mainWindow.loadURL(startUrl);
   // mainWindow.loadURL('http://localhost:3000');
 
   // Отображаем средства разработчика.
